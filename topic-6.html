@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-lang-key="title.6"></title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <style>
+      img,
+      video {
+        display: block;
+      }
+
+      button {
+        border: none;
+        outline: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      main {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .swiper-section {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .video-container {
+        position: relative;
+        width: 54vw;
+        height: 30vw;
+        border-radius: 20vw;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(1vw);
+        -webkit-backdrop-filter: blur(1vw);
+        border: 0.5vw solid #fce760;
+        box-shadow:
+          0 1vw 3vw rgba(0, 0, 0, 0.25),
+          inset 0 0 2vw rgba(255, 255, 255, 0.18);
+        z-index: 5;
+      }
+
+      .video-swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .video-swiper .swiper-wrapper,
+      .video-swiper .swiper-slide {
+        width: 100%;
+        height: 100%;
+      }
+
+      .video-swiper .swiper-slide {
+        overflow: hidden;
+      }
+
+      .video-swiper video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .swiper-nav-btn {
+        position: absolute;
+        top: 48%;
+        transform: translateY(-50%);
+        width: 5vw;
+        height: 5vw;
+        z-index: 20;
+        transition:
+          transform 0.35s ease,
+          opacity 0.35s ease,
+          visibility 0.35s ease;
+      }
+
+      .swiper-nav-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+      }
+
+      .swiper-nav-btn:hover {
+        transform: translateY(-50%) scale(1.08);
+      }
+
+      .prev-btn {
+        left: 15vw;
+      }
+
+      .next-btn {
+        right: 15vw;
+      }
+
+      .prev-btn.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .page-title {
+        top: 2% !important;
+        animation: pageTitleComeFromTop 1.5s cubic-bezier(0.22, 1, 0.36, 1)
+          forwards;
+        opacity: 0.5;
+        will-change: transform, opacity;
+      }
+
+      .page-title span {
+        font-size: 3vw;
+      }
+
+      @keyframes pageTitleComeFromTop {
+        0% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-140%);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      .text-container {
+        position: fixed;
+        left: 50%;
+        bottom: 3%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        width: auto;
+        min-width: 10vw;
+        max-width: 65vw;
+        height: 5.5vw;
+
+        padding: 0 3vw;
+        border-radius: 5vw;
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(0.6vw);
+        -webkit-backdrop-filter: blur(0.6vw);
+        border: 0.12vw solid rgba(255, 255, 255, 0.45);
+        box-shadow:
+          0 0.8vw 2vw rgba(0, 0, 0, 0.22),
+          inset 0 0 1.2vw rgba(255, 255, 255, 0.2);
+
+        z-index: 9999;
+        overflow: hidden;
+        font-family: "BalooRegular";
+        box-sizing: border-box;
+
+        opacity: 0;
+        will-change: width, transform, opacity;
+        animation: textContainerComeFromBottom 1.05s
+          cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards;
+
+        transition:
+          width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes textContainerComeFromBottom {
+        0% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(150%);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      .text-swiper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .text-swiper .swiper-wrapper {
+        width: 100%;
+        height: 100%;
+        align-items: center;
+      }
+
+      .text-swiper .swiper-slide {
+        width: 100% !important;
+        height: 100%;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        opacity: 0 !important;
+        visibility: hidden;
+      }
+
+      .text-swiper .swiper-slide-active {
+        opacity: 1 !important;
+        visibility: visible;
+      }
+
+      .text-swiper p {
+        margin: 0;
+        width: auto;
+        max-width: 59vw;
+        font-size: 2vw;
+        line-height: 1.15;
+        color: #ffffff;
+        font-weight: 700;
+        text-align: center;
+        white-space: nowrap;
+        word-break: normal;
+        overflow-wrap: normal;
+      }
+
+      .text-swiper p.is-long-text {
+        white-space: normal;
+        overflow-wrap: break-word;
+      }
+
+      .vertical-pagination,
+      .swiper-horizontal > .vertical-pagination.swiper-pagination-bullets,
+      .vertical-pagination.swiper-pagination-horizontal,
+      .vertical-pagination.swiper-pagination-bullets {
+        position: fixed !important;
+        top: 50% !important;
+        right: 3vw !important;
+        bottom: auto !important;
+        left: auto !important;
+        width: auto !important;
+        height: auto !important;
+        transform: translateY(-50%) !important;
+        z-index: 1000;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8vw;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+
+      .vertical-pagination .swiper-pagination-bullet {
+        width: 0.9vw;
+        height: 0.9vw;
+        min-width: 0.9vw;
+        min-height: 0.9vw;
+        max-width: 0.9vw;
+        max-height: 0.9vw;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 50%;
+        background: transparent !important;
+        border: 0.2vw solid #ffe137;
+        opacity: 1;
+        cursor: pointer;
+        display: block;
+        transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .vertical-pagination .swiper-pagination-bullet-active {
+        background: #ffe137 !important;
+        border-color: #ffe137;
+        transform: scale(1.05);
+      }
+
+      .pages {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 50%;
+        left: 3%;
+        transform: translateY(-50%);
+        justify-content: space-between;
+        align-items: center;
+        height: 27vw;
+        width: 5vw;
+        background: rgba(255, 255, 255, 0.295);
+        backdrop-filter: blur(0.6vw);
+        -webkit-backdrop-filter: blur(0.6vw);
+        border-radius: 10vw;
+        padding: 0.5vw 0;
+        border: 0.06vw solid rgba(255, 255, 255, 0.556);
+        pointer-events: auto;
+        z-index: 99999;
+        overflow: visible;
+      }
+
+      .pages a {
+        position: relative;
+        width: 3.5vw;
+        height: 3.5vw;
+        color: #ffe137;
+        text-decoration: none;
+        font-family: "BalooRegular";
+        font-size: 1.8vw;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: auto;
+        cursor: pointer !important;
+        z-index: 2;
+        overflow: visible;
+        isolation: isolate;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        transition:
+          color 0.35s ease,
+          transform 0.35s ease;
+      }
+
+      .pages a::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background-color: #8e73ff;
+        border: 0.3vw solid white;
+        box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.463);
+        z-index: -1;
+        transition:
+          background-color 0.35s ease,
+          border-color 0.35s ease,
+          transform 0.35s ease;
+      }
+
+      .pages a::after {
+        text-align: center;
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 3.5vw;
+        padding: 0;
+        box-sizing: border-box;
+        border-radius: 5vw;
+        background-color: #ffffff;
+        color: #8e73ff;
+        font-family: "BalooRegular";
+        font-size: 1.2vw;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        word-break: normal;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: -2;
+        box-shadow: 0 0.3vw 0.7vw rgba(0, 0, 0, 0.25);
+        transition:
+          width 0.45s ease,
+          padding 0.45s ease,
+          opacity 0.25s ease,
+          visibility 0.25s ease;
+      }
+
+      .pages a:hover::after {
+        width: 15vw;
+        padding: 0 1.5vw 0 3.2vw !important;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .pages a:hover {
+        transform: scale(1.08);
+      }
+
+      .pages a.active {
+        color: #8e73ff;
+      }
+
+      .pages a.active::before {
+        background-color: #ffe137;
+      }
+
+      body[data-lang="hi"] .text-swiper p,
+      body[data-lang="gu"] .text-swiper p {
+        font-size: 1.7vw;
+        line-height: 1.2;
+        max-width: 63vw;
+      }
+
+      body[data-lang="hi"] .text-container,
+      body[data-lang="gu"] .text-container {
+        max-width: 70vw;
+        padding: 0 3.5vw;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="home-btn" href="index.html">
+      <img src="./assets/images/home.png" alt="" />
+    </a>
+
+    <div class="page-title">
+      <span data-lang-key="title.6"></span>
+    </div>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <main>
+      <div class="pages">
+        <a
+          href="topic-1.html"
+          data-lang-key="num-1"
+          data-tooltip-key="title.1"
+        ></a>
+
+        <a
+          href="topic-2.html"
+          data-lang-key="num-2"
+          data-tooltip-key="title.2"
+        ></a>
+
+        <a
+          href="topic-3.html"
+          data-lang-key="num-3"
+          data-tooltip-key="title.3"
+        ></a>
+
+        <a
+          href="topic-4.html"
+          data-lang-key="num-4"
+          data-tooltip-key="title.4"
+        ></a>
+
+        <a
+          href="topic-5.html"
+          data-lang-key="num-5"
+          data-tooltip-key="title.5"
+        ></a>
+
+        <a
+          class="active"
+          href="topic-6.html"
+          data-lang-key="num-6"
+          data-tooltip-key="title.6"
+        ></a>
+      </div>
+
+      <section class="swiper-section">
+        <button class="swiper-nav-btn prev-btn" type="button">
+          <img src="./assets/images/prev-btn.png" alt="Previous" />
+        </button>
+
+        <div class="video-container">
+          <div class="swiper video-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-1.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-2.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-3.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-4.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-5.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-6.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-7.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-8.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-9.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-10.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-11.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-12.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-13.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-14.mp4" muted playsinline></video>
+              </div>
+
+              <div class="swiper-slide">
+                <video src="./assets/videos/6-15.mp4" muted playsinline></video>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="swiper-nav-btn next-btn" type="button">
+          <img src="./assets/images/next-btn.png" alt="Next" />
+        </button>
+
+        <div class="vertical-pagination"></div>
+      </section>
+
+      <div class="text-container">
+        <div class="swiper text-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.1"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.2"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.3"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.4"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.5"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.6"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.7"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.8"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.9"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.10"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.11"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.12"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.13"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.14"></p>
+            </div>
+
+            <div class="swiper-slide">
+              <p data-lang-key="slide-6.15"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+
+    <script>
+      const prevBtn = document.querySelector(".prev-btn");
+      const nextBtn = document.querySelector(".next-btn");
+
+      function stopAllVideos() {
+        document.querySelectorAll(".video-swiper video").forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+        });
+      }
+
+      function playActiveVideo(swiper) {
+        stopAllVideos();
+
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const activeVideo = activeSlide.querySelector("video");
+
+        if (activeVideo) {
+          activeVideo.currentTime = 0;
+          activeVideo.play().catch(() => {});
+        }
+      }
+
+      function updateButtons(swiper) {
+        if (swiper.activeIndex === 0) {
+          prevBtn.classList.add("is-hidden");
+        } else {
+          prevBtn.classList.remove("is-hidden");
+        }
+
+        nextBtn.classList.remove("is-hidden");
+      }
+
+      function resizeTextContainer() {
+        const textContainer = document.querySelector(".text-container");
+        const textSwiperEl = document.querySelector(".text-swiper");
+        const activeSlide = document.querySelector(
+          ".text-swiper .swiper-slide-active",
+        );
+        const activeP = activeSlide ? activeSlide.querySelector("p") : null;
+
+        if (!textContainer || !textSwiperEl || !activeP) return;
+
+        activeP.classList.remove("is-long-text");
+
+        const containerStyle = getComputedStyle(textContainer);
+
+        const paddingLeft = parseFloat(containerStyle.paddingLeft) || 0;
+        const paddingRight = parseFloat(containerStyle.paddingRight) || 0;
+        const borderLeft = parseFloat(containerStyle.borderLeftWidth) || 0;
+        const borderRight = parseFloat(containerStyle.borderRightWidth) || 0;
+
+        const extraWidth =
+          paddingLeft + paddingRight + borderLeft + borderRight;
+
+        const minContainerWidth = parseFloat(containerStyle.minWidth) || 0;
+        const maxContainerWidth =
+          parseFloat(containerStyle.maxWidth) || window.innerWidth * 0.65;
+
+        textContainer.style.width = "auto";
+        textSwiperEl.style.width = "auto";
+
+        activeP.style.whiteSpace = "nowrap";
+
+        requestAnimationFrame(() => {
+          const naturalTextWidth = activeP.scrollWidth;
+          let finalContainerWidth = naturalTextWidth + extraWidth;
+
+          if (finalContainerWidth > maxContainerWidth) {
+            finalContainerWidth = maxContainerWidth;
+            activeP.classList.add("is-long-text");
+            activeP.style.whiteSpace = "";
+          }
+
+          if (finalContainerWidth < minContainerWidth) {
+            finalContainerWidth = minContainerWidth;
+          }
+
+          textContainer.style.width = finalContainerWidth + "px";
+          textSwiperEl.style.width =
+            Math.max(finalContainerWidth - extraWidth, 0) + "px";
+
+          if (textSwiper && typeof textSwiper.update === "function") {
+            textSwiper.update();
+          }
+        });
+      }
+
+      const textSwiper = new Swiper(".text-swiper", {
+        effect: "fade",
+        speed: 650,
+        allowTouchMove: false,
+        autoHeight: false,
+        observer: true,
+        observeParents: true,
+      });
+
+      const videoSwiper = new Swiper(".video-swiper", {
+        effect: "slide",
+        speed: 800,
+        allowTouchMove: false,
+
+        pagination: {
+          el: ".vertical-pagination",
+          clickable: true,
+        },
+
+        on: {
+          init(swiper) {
+            playActiveVideo(swiper);
+            textSwiper.slideTo(swiper.activeIndex, 0);
+            updateButtons(swiper);
+
+            setTimeout(() => {
+              resizeTextContainer();
+            }, 120);
+          },
+
+          slideChange(swiper) {
+            playActiveVideo(swiper);
+            textSwiper.slideTo(swiper.activeIndex, 650);
+            updateButtons(swiper);
+
+            setTimeout(() => {
+              resizeTextContainer();
+            }, 120);
+          },
+        },
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (videoSwiper.activeIndex > 0) {
+          videoSwiper.slidePrev();
+        }
+      });
+
+      nextBtn.addEventListener("click", () => {
+        if (videoSwiper.activeIndex === videoSwiper.slides.length - 1) {
+          window.location.href = "pranam.html";
+        } else {
+          videoSwiper.slideNext();
+        }
+      });
+
+      let translations = {};
+
+      function getCurrentLanguage() {
+        return (
+          localStorage.getItem("selectedLanguage") ||
+          localStorage.getItem("preferredLanguage") ||
+          document.body.getAttribute("data-lang") ||
+          "English"
+        );
+      }
+
+      function normalizeLanguage(lang) {
+        const value = String(lang).toLowerCase();
+
+        if (value === "en" || value === "english") return "English";
+        if (value === "hi" || value === "hindi") return "Hindi";
+        if (value === "gu" || value === "gujarati" || value === "gujrati") {
+          return "Gujarati";
+        }
+
+        return "English";
+      }
+
+      function updateTooltips(languageData) {
+        document.querySelectorAll("[data-tooltip-key]").forEach((element) => {
+          const key = element.getAttribute("data-tooltip-key");
+
+          element.setAttribute(
+            "data-tooltip",
+            languageData && languageData[key] ? languageData[key] : key,
+          );
+        });
+      }
+
+      function updateLanguage(language) {
+        const currentLang = normalizeLanguage(language);
+        const languageData = translations[currentLang];
+
+        if (!languageData) return;
+
+        document.querySelectorAll("[data-lang-key]").forEach((element) => {
+          const key = element.getAttribute("data-lang-key");
+
+          if (languageData[key]) {
+            element.textContent = languageData[key];
+          }
+        });
+
+        updateTooltips(languageData);
+
+        document.querySelectorAll(".language-container div").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        if (currentLang === "English") {
+          document.querySelector(".english")?.classList.add("active");
+          document.documentElement.setAttribute("lang", "en");
+          document.body.setAttribute("data-lang", "en");
+        }
+
+        if (currentLang === "Hindi") {
+          document.querySelector(".hindi")?.classList.add("active");
+          document.documentElement.setAttribute("lang", "hi");
+          document.body.setAttribute("data-lang", "hi");
+        }
+
+        if (currentLang === "Gujarati") {
+          document.querySelector(".gujrati")?.classList.add("active");
+          document.documentElement.setAttribute("lang", "gu");
+          document.body.setAttribute("data-lang", "gu");
+        }
+
+        localStorage.setItem("selectedLanguage", currentLang);
+        localStorage.setItem("preferredLanguage", currentLang);
+
+        setTimeout(() => {
+          textSwiper.update();
+          textSwiper.slideTo(videoSwiper.activeIndex, 0);
+          resizeTextContainer();
+        }, 100);
+      }
+
+      fetch("./data.json")
+        .then((response) => response.json())
+        .then((data) => {
+          translations = data;
+
+          const savedLanguage = getCurrentLanguage();
+          updateLanguage(savedLanguage);
+
+          setTimeout(() => {
+            textSwiper.update();
+            textSwiper.slideTo(videoSwiper.activeIndex, 0);
+            resizeTextContainer();
+          }, 180);
+        })
+        .catch(() => {
+          document.querySelectorAll("[data-tooltip-key]").forEach((element) => {
+            element.setAttribute(
+              "data-tooltip",
+              element.getAttribute("data-tooltip-key"),
+            );
+          });
+
+          setTimeout(() => {
+            resizeTextContainer();
+          }, 150);
+        });
+
+      document
+        .querySelector(".english")
+        ?.addEventListener("click", () => updateLanguage("English"));
+
+      document
+        .querySelector(".hindi")
+        ?.addEventListener("click", () => updateLanguage("Hindi"));
+
+      document
+        .querySelector(".gujrati")
+        ?.addEventListener("click", () => updateLanguage("Gujarati"));
+
+      videoSwiper.on("slideChangeTransitionEnd", () => {
+        resizeTextContainer();
+      });
+
+      window.addEventListener("resize", () => {
+        setTimeout(() => {
+          resizeTextContainer();
+        }, 120);
+      });
+
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          resizeTextContainer();
+        }, 220);
+      });
+    </script>
+  </body>
+</html>

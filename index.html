@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-lang-key="title"></title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <style>
+      .left-container,
+      .right-container {
+        width: 18%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3vw;
+        margin-top: 5%;
+        transition:
+          transform 3s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 1.2s ease;
+      }
+
+      .left-container a,
+      .right-container a {
+        width: 22vw;
+        height: 7vw;
+        background-color: #8e73ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.4vw solid #fce760;
+        color: white;
+        border-radius: 5vw;
+        text-align: center;
+        font-family: "BalooRegular";
+        font-size: 1.6vw;
+        padding: 0.2vw 2vw;
+        text-decoration: none;
+        line-height: 1.2;
+        transition:
+          color 0.3s ease-out,
+          background 0.3s ease-out;
+      }
+
+      .left-container a:hover,
+      .right-container a:hover {
+        color: #8e73ff;
+        background-color: #ffffff;
+      }
+
+      .topic-2 {
+        margin-right: 12vw;
+      }
+
+      .topic-5 {
+        margin-left: 12vw;
+      }
+
+      .page-title {
+        transition:
+          transform 3s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 1.2s ease;
+      }
+
+      body.page-loading .page-title {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-130%);
+      }
+
+      body.page-loading .emoji-container {
+        opacity: 0;
+        transform: translateX(-50%) scale(3);
+        border-radius: 1vw;
+      }
+
+      body.page-loading .emoji-container video {
+        border-radius: 1vw;
+      }
+
+      body.page-loading .left-container {
+        opacity: 0;
+        transform: translateX(-130%);
+      }
+
+      body.page-loading .right-container {
+        opacity: 0;
+        transform: translateX(130%);
+      }
+
+      body.page-loaded .page-title {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      body.page-loaded .emoji-container {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+        border-radius: 18vw;
+      }
+
+      body.page-loaded .emoji-container video {
+        border-radius: 18vw;
+      }
+
+      body.page-loaded .left-container,
+      body.page-loaded .right-container {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      body.page-exit .left-container {
+        opacity: 0 !important;
+        transform: translateX(-130%) !important;
+        transition:
+          transform 1.5s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.8s ease !important;
+      }
+
+      body.page-exit .right-container {
+        opacity: 0 !important;
+        transform: translateX(130%) !important;
+        transition:
+          transform 1.5s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.8s ease !important;
+      }
+
+      body.page-exit .topic-container a {
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body class="page-loading">
+    <!-- <a class="home-btn" href="index.html">
+      <img src="./assets/images/home.png" alt="" />
+    </a> -->
+
+    <div class="page-title">
+      <span data-lang-key="title"></span>
+    </div>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <div class="emoji-container">
+      <video
+        src="./assets/videos/emoji.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+    </div>
+
+    <div class="topic-container">
+      <div class="left-container">
+        <a href="topic-1.html" class="topic-1" data-lang-key="title-1"></a>
+        <a href="topic-2.html" class="topic-2" data-lang-key="title-2"></a>
+        <a href="topic-3.html" class="topic-3" data-lang-key="title-3"></a>
+      </div>
+
+      <div class="right-container">
+        <a href="topic-4.html" class="topic-4" data-lang-key="title-4"></a>
+        <a href="topic-5.html" class="topic-5" data-lang-key="title-5"></a>
+        <a href="topic-6.html" class="topic-6" data-lang-key="title-6"></a>
+      </div>
+    </div>
+
+    <script src="./assets/js/app.js"></script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            document.body.classList.remove("page-loading");
+            document.body.classList.add("page-loaded");
+          }, 150);
+        });
+      });
+
+      document.addEventListener(
+        "click",
+        function (e) {
+          const link = e.target.closest(".topic-container a");
+
+          if (!link) return;
+
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          const targetPage = link.getAttribute("href");
+
+          if (!targetPage || targetPage === "#") return;
+
+          document.body.classList.remove("page-loading");
+          document.body.classList.remove("page-loaded");
+          document.body.classList.add("page-exit");
+
+          setTimeout(() => {
+            window.location.href = targetPage;
+          }, 1000);
+        },
+        true
+      );
+    </script>
+  </body>
+</html>
