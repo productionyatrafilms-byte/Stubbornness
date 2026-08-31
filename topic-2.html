@@ -7,7 +7,7 @@
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      href="./assets/css/swiper-bundle.min.css"
     />
 
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -402,6 +402,23 @@
         max-width: 70vw;
         padding: 1vw 3.5vw;
       }
+      body[data-lang="hi"] .text-swiper p {
+        font-family: "ITFDevanagari", sans-serif;
+      }
+
+      body[data-lang="gu"] .text-swiper p {
+        font-family: "NotoSansGujaratiRegular", sans-serif;
+      }
+
+      body[data-lang="hi"] .pages a,
+      body[data-lang="hi"] .pages a::after {
+        font-family: "ITFDevanagari" !important;
+      }
+
+      body[data-lang="gu"] .pages a,
+      body[data-lang="gu"] .pages a::after {
+        font-family: "NotoSansGujaratiRegular" !important;
+      }
     </style>
   </head>
 
@@ -463,39 +480,39 @@
           <div class="swiper video-swiper">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <video src="./assets/videos/2-1.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-1.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-2.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-2.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-3.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-3.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-4.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-4.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-5.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-5.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-6.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-6.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-7.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-7.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-8.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-8.mp4" muted playsinline loop></video>
               </div>
 
               <div class="swiper-slide">
-                <video src="./assets/videos/2-9.mp4" muted playsinline></video>
+                <video src="./assets/videos/2-9.mp4" muted playsinline loop></video>
               </div>
             </div>
           </div>
@@ -551,8 +568,9 @@
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/djp.js"></script>
 
     <script>
       const prevBtn = document.querySelector(".prev-btn");
@@ -712,7 +730,7 @@
         }, 50);
       }
 
-      fetch("./data.json")
+      fetch("./assets/json/data.json")
         .then((response) => response.json())
         .then((data) => {
           translations = data;

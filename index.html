@@ -49,6 +49,16 @@
         background-color: #ffffff;
       }
 
+      body[data-lang="hi"] .left-container a,
+      body[data-lang="hi"] .right-container a {
+        font-family: "ITFDevanagari" !important;
+      }
+
+      body[data-lang="gu"] .left-container a,
+      body[data-lang="gu"] .right-container a {
+        font-family: "NotoSansGujaratiRegular" !important;
+      }
+
       .topic-2 {
         margin-right: 12vw;
       }
@@ -171,6 +181,7 @@
     </div>
 
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/djp.js"></script>
 
     <script>
       window.addEventListener("DOMContentLoaded", () => {
@@ -192,6 +203,10 @@
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
+
+          if (typeof playSound === "function" && typeof topicClickSound !== "undefined") {
+            playSound(topicClickSound);
+          }
 
           const targetPage = link.getAttribute("href");
 

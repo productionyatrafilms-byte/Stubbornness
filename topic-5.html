@@ -7,7 +7,7 @@
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      href="./assets/css/swiper-bundle.min.css"
     />
 
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -44,10 +44,16 @@
         align-items: center;
       }
 
-      .video-container {
+      .video-frame {
         position: relative;
         width: 54vw;
         height: 30vw;
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
         border-radius: 20vw;
         overflow: hidden;
         background: rgba(255, 255, 255, 0.15);
@@ -79,6 +85,61 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+
+      .dialogue-box.hidden {
+        display: none;
+      }
+
+      .dialogue-box {
+        position: absolute;
+        width: 13vw;
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      .dialogue-box img {
+        width: 100%;
+        display: block;
+      }
+
+      .dialogue-box span {
+        position: absolute;
+        width: 78%;
+        text-align: center;
+        font-family: "BalooRegular";
+        font-size: 1.1vw;
+        font-weight: 700;
+        color: #662b36;
+        line-height: 1.5;
+      }
+
+      body[data-lang="hi"] .dialogue-box span {
+        font-family: "ITFDevanagari" !important;
+      }
+
+      body[data-lang="gu"] .dialogue-box span {
+        font-family: "NotoSansGujaratiBold" !important;
+        font-weight: 700 !important;
+      }
+
+      .dialogue-5-1 {
+        top: 8%;
+        right: 6%;
+      }
+
+      .dialogue-5-2 {
+        top: -8%;
+        left: -5%;
+       
+      }
+
+      .dialogue-5-3 {
+        top: 10%;
+        right: 8%;
       }
 
       .swiper-nav-btn {
@@ -414,6 +475,23 @@
         max-width: 70vw;
         padding: 0 3.5vw;
       }
+      body[data-lang="hi"] .text-swiper p {
+        font-family: "ITFDevanagari", sans-serif;
+      }
+
+      body[data-lang="gu"] .text-swiper p {
+        font-family: "NotoSansGujaratiRegular", sans-serif;
+      }
+
+      body[data-lang="hi"] .pages a,
+      body[data-lang="hi"] .pages a::after {
+        font-family: "ITFDevanagari" !important;
+      }
+
+      body[data-lang="gu"] .pages a,
+      body[data-lang="gu"] .pages a::after {
+        font-family: "NotoSansGujaratiRegular" !important;
+      }
     </style>
   </head>
 
@@ -477,25 +555,42 @@
           <img src="./assets/images/prev-btn.png" alt="Previous" />
         </button>
 
-        <div class="video-container">
-          <div class="swiper video-swiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <video src="./assets/videos/5-1.mp4" muted playsinline></video>
-              </div>
+        <div class="video-frame">
+          <div class="video-container">
+            <div class="swiper video-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <video src="./assets/videos/5-1.mp4" muted playsinline loop></video>
+                </div>
 
-              <div class="swiper-slide">
-                <video src="./assets/videos/5-2.mp4" muted playsinline></video>
-              </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/5-2.mp4" muted playsinline loop></video>
+                </div>
 
-              <div class="swiper-slide">
-                <video src="./assets/videos/5-3.mp4" muted playsinline></video>
-              </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/5-3.mp4" muted playsinline loop></video>
+                </div>
 
-              <div class="swiper-slide">
-                <video src="./assets/videos/5-4.mp4" muted playsinline></video>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/5-4.mp4" muted playsinline loop></video>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div class="dialogue-box dialogue-5-1 hidden" data-slide-index="0">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue5.1"></span>
+          </div>
+
+          <div class="dialogue-box dialogue-5-2 hidden" data-slide-index="1">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue5.2"></span>
+          </div>
+
+          <div class="dialogue-box dialogue-5-3 hidden" data-slide-index="2">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue5.3"></span>
           </div>
         </div>
 
@@ -529,8 +624,9 @@
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/djp.js"></script>
 
     <script>
       const prevBtn = document.querySelector(".prev-btn");
@@ -567,6 +663,13 @@
         } else {
           nextBtn.classList.remove("is-hidden");
         }
+      }
+
+      function updateDialogueBox(swiper) {
+        document.querySelectorAll(".video-frame .dialogue-box").forEach((box) => {
+          const boxIndex = Number(box.getAttribute("data-slide-index"));
+          box.classList.toggle("hidden", boxIndex !== swiper.activeIndex);
+        });
       }
 
       function resizeTextContainer() {
@@ -653,6 +756,7 @@
             playActiveVideo(swiper);
             textSwiper.slideTo(swiper.activeIndex, 0);
             updateButtons(swiper);
+            updateDialogueBox(swiper);
 
             setTimeout(() => {
               resizeTextContainer();
@@ -663,6 +767,7 @@
             playActiveVideo(swiper);
             textSwiper.slideTo(swiper.activeIndex, 650);
             updateButtons(swiper);
+            updateDialogueBox(swiper);
 
             setTimeout(() => {
               resizeTextContainer();
@@ -753,7 +858,7 @@
         }, 100);
       }
 
-      fetch("./data.json")
+      fetch("./assets/json/data.json")
         .then((response) => response.json())
         .then((data) => {
           translations = data;

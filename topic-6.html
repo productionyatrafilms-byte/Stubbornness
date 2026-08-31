@@ -7,7 +7,7 @@
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      href="./assets/css/swiper-bundle.min.css"
     />
 
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -44,10 +44,16 @@
         align-items: center;
       }
 
-      .video-container {
+      .video-frame {
         position: relative;
         width: 54vw;
         height: 30vw;
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
         border-radius: 20vw;
         overflow: hidden;
         background: rgba(255, 255, 255, 0.15);
@@ -79,6 +85,65 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+
+      .dialogue-box.hidden {
+        display: none;
+      }
+
+      .dialogue-box {
+        position: absolute;
+        width: 13vw;
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      .dialogue-box img {
+        width: 100%;
+        display: block;
+      }
+
+      .dialogue-box span {
+        position: absolute;
+        width: 78%;
+        text-align: center;
+        font-family: "BalooRegular";
+        font-size: 1.1vw;
+        font-weight: 700;
+        color: #662b36;
+        line-height: 1.5;
+      }
+
+      body[data-lang="hi"] .dialogue-box span {
+        font-family: "ITFDevanagari" !important;
+      }
+
+      body[data-lang="gu"] .dialogue-box span {
+        font-family: "NotoSansGujaratiBold" !important;
+        font-weight: 700 !important;
+      }
+
+      .dialogue-6-2 {
+        top: 2%;
+        left: 40%;
+      }
+
+      .dialogue-6-3 {
+        top: 8%;
+        right: 9%;
+      }
+
+      .dialogue-6-4 {
+        top: 8%;
+        left: 6%;
+      }
+
+      .dialogue-6-5 {
+        top: 8%;
+        left: 6%;
       }
 
       .swiper-nav-btn {
@@ -113,7 +178,8 @@
         right: 15vw;
       }
 
-      .prev-btn.is-hidden {
+      .prev-btn.is-hidden,
+      .next-btn.is-hidden {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -418,12 +484,34 @@
         max-width: 70vw;
         padding: 0 3.5vw;
       }
+      body[data-lang="hi"] .text-swiper p {
+        font-family: "ITFDevanagari", sans-serif;
+      }
+
+      body[data-lang="gu"] .text-swiper p {
+        font-family: "NotoSansGujaratiRegular", sans-serif;
+      }
+
+      body[data-lang="hi"] .pages a,
+      body[data-lang="hi"] .pages a::after {
+        font-family: "ITFDevanagari" !important;
+      }
+
+      body[data-lang="gu"] .pages a,
+      body[data-lang="gu"] .pages a::after {
+        font-family: "NotoSansGujaratiRegular" !important;
+      }
     </style>
   </head>
 
   <body>
     <a class="home-btn" href="index.html">
       <img src="./assets/images/home.png" alt="" />
+    </a>
+
+    <a href="pranam.html" class="pranam-link hidden">
+      <img src="./assets/images/arowAsset.png" alt="" />
+      <span data-lang-key="pranam"></span>
     </a>
 
     <div class="page-title">
@@ -481,69 +569,50 @@
           <img src="./assets/images/prev-btn.png" alt="Previous" />
         </button>
 
-        <div class="video-container">
-          <div class="swiper video-swiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-1.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-2.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-3.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-4.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-5.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-6.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-7.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-8.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-9.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-10.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-11.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-12.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-13.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-14.mp4" muted playsinline></video>
-              </div>
-
-              <div class="swiper-slide">
-                <video src="./assets/videos/6-15.mp4" muted playsinline></video>
+        <div class="video-frame">
+          <div class="video-container">
+            <div class="swiper video-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <video src="./assets/videos/6-1.mp4" muted playsinline loop></video>
+                </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/6-2.mp4" muted playsinline loop></video>
+                </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/6-3.mp4" muted playsinline loop></video>
+                </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/6-4.mp4" muted playsinline loop></video>
+                </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/6-5.mp4" muted playsinline loop></video>
+                </div>
+                <div class="swiper-slide">
+                  <video src="./assets/videos/6-6.mp4" muted playsinline loop></video>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div class="dialogue-box dialogue-6-2 hidden" data-slide-index="1">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue6.2"></span>
+          </div>
+
+          <div class="dialogue-box dialogue-6-3 hidden" data-slide-index="2">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue6.3"></span>
+          </div>
+
+          <div class="dialogue-box dialogue-6-4 hidden" data-slide-index="3">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue6.4"></span>
+          </div>
+
+          <div class="dialogue-box dialogue-6-5 hidden" data-slide-index="4">
+            <img src="./assets/images/dialoguebox.png" alt="" />
+            <span data-lang-key="dialogue6.5"></span>
           </div>
         </div>
 
@@ -560,73 +629,34 @@
             <div class="swiper-slide">
               <p data-lang-key="slide-6.1"></p>
             </div>
-
             <div class="swiper-slide">
               <p data-lang-key="slide-6.2"></p>
             </div>
-
             <div class="swiper-slide">
               <p data-lang-key="slide-6.3"></p>
             </div>
-
             <div class="swiper-slide">
               <p data-lang-key="slide-6.4"></p>
             </div>
-
             <div class="swiper-slide">
               <p data-lang-key="slide-6.5"></p>
             </div>
-
             <div class="swiper-slide">
               <p data-lang-key="slide-6.6"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.7"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.8"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.9"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.10"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.11"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.12"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.13"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.14"></p>
-            </div>
-
-            <div class="swiper-slide">
-              <p data-lang-key="slide-6.15"></p>
             </div>
           </div>
         </div>
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/djp.js"></script>
 
     <script>
       const prevBtn = document.querySelector(".prev-btn");
       const nextBtn = document.querySelector(".next-btn");
+      const pranamLink = document.querySelector(".pranam-link");
 
       function stopAllVideos() {
         document.querySelectorAll(".video-swiper video").forEach((video) => {
@@ -654,7 +684,20 @@
           prevBtn.classList.remove("is-hidden");
         }
 
-        nextBtn.classList.remove("is-hidden");
+        if (swiper.activeIndex === swiper.slides.length - 1) {
+          nextBtn.classList.add("is-hidden");
+          pranamLink.classList.remove("hidden");
+        } else {
+          nextBtn.classList.remove("is-hidden");
+          pranamLink.classList.add("hidden");
+        }
+      }
+
+      function updateDialogueBox(swiper) {
+        document.querySelectorAll(".video-frame .dialogue-box").forEach((box) => {
+          const boxIndex = Number(box.getAttribute("data-slide-index"));
+          box.classList.toggle("hidden", boxIndex !== swiper.activeIndex);
+        });
       }
 
       function resizeTextContainer() {
@@ -736,6 +779,7 @@
             playActiveVideo(swiper);
             textSwiper.slideTo(swiper.activeIndex, 0);
             updateButtons(swiper);
+            updateDialogueBox(swiper);
 
             setTimeout(() => {
               resizeTextContainer();
@@ -746,6 +790,7 @@
             playActiveVideo(swiper);
             textSwiper.slideTo(swiper.activeIndex, 650);
             updateButtons(swiper);
+            updateDialogueBox(swiper);
 
             setTimeout(() => {
               resizeTextContainer();
@@ -761,11 +806,7 @@
       });
 
       nextBtn.addEventListener("click", () => {
-        if (videoSwiper.activeIndex === videoSwiper.slides.length - 1) {
-          window.location.href = "pranam.html";
-        } else {
-          videoSwiper.slideNext();
-        }
+        videoSwiper.slideNext();
       });
 
       let translations = {};
@@ -850,7 +891,7 @@
         }, 100);
       }
 
-      fetch("./data.json")
+      fetch("./assets/json/data.json")
         .then((response) => response.json())
         .then((data) => {
           translations = data;
