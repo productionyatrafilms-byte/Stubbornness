@@ -92,25 +92,12 @@ function applyLanguage(lang) {
 }
 
 function loadTranslations() {
-  fetch("./assets/json/data.json")
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("data.json not found");
-      }
+  window.translations = typeof data !== "undefined" ? data : {};
 
-      return res.json();
-    })
-    .then((data) => {
-      window.translations = data;
+  const savedLang = localStorage.getItem(STORAGE_KEY);
+  const langToApply = savedLang || DEFAULT_LANG;
 
-      const savedLang = localStorage.getItem(STORAGE_KEY);
-      const langToApply = savedLang || DEFAULT_LANG;
-
-      applyLanguage(langToApply);
-    })
-    .catch((err) => {
-      console.error("Error loading translations:", err);
-    });
+  applyLanguage(langToApply);
 }
 
 /* ===== sound effects ===== */

@@ -569,7 +569,8 @@
     </main>
 
     <script src="./assets/js/swiper-bundle.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/data.js"></script>
+<script src="./assets/js/app.js"></script>
     <script src="./assets/js/djp.js"></script>
 
     <script>
@@ -730,27 +731,24 @@
         }, 50);
       }
 
-      fetch("./assets/json/data.json")
-        .then((response) => response.json())
-        .then((data) => {
-          translations = data;
+      try {
+        translations = typeof data !== "undefined" ? data : {};
 
-          const savedLanguage = getCurrentLanguage();
-          updateLanguage(savedLanguage);
+        const savedLanguage = getCurrentLanguage();
+        updateLanguage(savedLanguage);
 
-          setTimeout(() => {
-            textSwiper.update();
-            textSwiper.slideTo(videoSwiper.activeIndex, 0);
-          }, 100);
-        })
-        .catch(() => {
-          document.querySelectorAll("[data-tooltip-key]").forEach((element) => {
-            element.setAttribute(
-              "data-tooltip",
-              element.getAttribute("data-tooltip-key")
-            );
-          });
+        setTimeout(() => {
+          textSwiper.update();
+          textSwiper.slideTo(videoSwiper.activeIndex, 0);
+        }, 100);
+      } catch (err) {
+        document.querySelectorAll("[data-tooltip-key]").forEach((element) => {
+          element.setAttribute(
+            "data-tooltip",
+            element.getAttribute("data-tooltip-key")
+          );
         });
+      }
 
       document.querySelector(".english")?.addEventListener("click", () => {
         updateLanguage("English");

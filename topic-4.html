@@ -637,7 +637,8 @@
     </main>
 
     <script src="./assets/js/swiper-bundle.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/data.js"></script>
+<script src="./assets/js/app.js"></script>
     <script src="./assets/js/djp.js"></script>
 
     <script>
@@ -870,32 +871,29 @@
         }, 100);
       }
 
-      fetch("./assets/json/data.json")
-        .then((response) => response.json())
-        .then((data) => {
-          translations = data;
+      try {
+        translations = typeof data !== "undefined" ? data : {};
 
-          const savedLanguage = getCurrentLanguage();
-          updateLanguage(savedLanguage);
+        const savedLanguage = getCurrentLanguage();
+        updateLanguage(savedLanguage);
 
-          setTimeout(() => {
-            textSwiper.update();
-            textSwiper.slideTo(videoSwiper.activeIndex, 0);
-            resizeTextContainer();
-          }, 180);
-        })
-        .catch(() => {
-          document.querySelectorAll("[data-tooltip-key]").forEach((element) => {
-            element.setAttribute(
-              "data-tooltip",
-              element.getAttribute("data-tooltip-key"),
-            );
-          });
-
-          setTimeout(() => {
-            resizeTextContainer();
-          }, 150);
+        setTimeout(() => {
+          textSwiper.update();
+          textSwiper.slideTo(videoSwiper.activeIndex, 0);
+          resizeTextContainer();
+        }, 180);
+      } catch (err) {
+        document.querySelectorAll("[data-tooltip-key]").forEach((element) => {
+          element.setAttribute(
+            "data-tooltip",
+            element.getAttribute("data-tooltip-key"),
+          );
         });
+
+        setTimeout(() => {
+          resizeTextContainer();
+        }, 150);
+      }
 
       document
         .querySelector(".english")
