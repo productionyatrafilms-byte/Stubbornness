@@ -254,14 +254,19 @@ body[data-lang="gu"] .pranam-img span {
   left: 50%;
   top: 49%;
   transform: translate(-50%, -50%);
-  width: 68%;
-  height: 68%;
+  width: 28vw;
+  height: 28vw;
   border-radius: 50%;
-  overflow: hidden;
+  background-color: #f6f6f6;
+  background-image: url("../images/pranam-bg-1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f6f6f6;
+  overflow: hidden;
+  padding-right: 2.5vw;
   z-index: 5;
 }
 
@@ -269,31 +274,6 @@ body[data-lang="gu"] .pranam-img span {
   width: 90%;
   height: 83%;
   object-fit: cover;
-
-  -webkit-mask-image:
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(0, 0, 0, 0.8) 2%,
-      rgba(0, 0, 0, 0.95) 4%,
-      black 6%,
-      black 90%,
-      rgba(0, 0, 0, 0.95) 96%,
-      rgba(0, 0, 0, 0.8) 98%,
-      transparent 100%
-    ),
-    linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(0, 0, 0, 0.8) 2%,
-      rgba(0, 0, 0, 0.95) 4%,
-      black 6%,
-      black 90%,
-      rgba(0, 0, 0, 0.95) 96%,
-      rgba(0, 0, 0, 0.8) 98%,
-      transparent 100%
-    );
-  -webkit-mask-composite: source-in;
 
   mask-image:
     linear-gradient(
@@ -320,9 +300,7 @@ body[data-lang="gu"] .pranam-img span {
     );
   mask-composite: intersect;
 
-  -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
 }
 
