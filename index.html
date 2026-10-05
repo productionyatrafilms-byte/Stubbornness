@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-lang-key="title"></title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="./assets/css/video-popup.css" />
 
     <style>
+      .video-btn {
+        bottom: 2vw;
+      }
+
       .left-container,
       .right-container {
         width: 18%;
@@ -183,8 +189,12 @@
     <script src="./assets/js/data.js"></script>
 <script src="./assets/js/app.js"></script>
     <script src="./assets/js/djp.js"></script>
+    <script src="./assets/js/video-popup.js"></script>
 
     <script>
+      // START button (bottom left) that plays v1.webm in a popup.
+      initVideoPopup({ src: "./assets/videos/v1.webm", slideIndex: 0 }).sync(0);
+
       window.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(() => {
           setTimeout(() => {
