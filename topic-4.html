@@ -564,23 +564,23 @@
             <div class="swiper video-swiper">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                  <video src="./assets/videos/4-1.mp4" muted playsinline loop></video>
+                  <video src="./assets/videos/4-1.mp4" preload="auto" muted playsinline loop></video>
                 </div>
 
                 <div class="swiper-slide">
-                  <video src="./assets/videos/4-2.mp4" muted playsinline loop></video>
+                  <video src="./assets/videos/4-2.mp4" preload="none" muted playsinline loop></video>
                 </div>
 
                 <div class="swiper-slide">
-                  <video src="./assets/videos/4-3.mp4" muted playsinline loop></video>
+                  <video src="./assets/videos/4-3.mp4" preload="none" muted playsinline loop></video>
                 </div>
 
                 <div class="swiper-slide">
-                  <video src="./assets/videos/4-4.mp4" muted playsinline loop></video>
+                  <video src="./assets/videos/4-4.mp4" preload="none" muted playsinline loop></video>
                 </div>
 
                 <div class="swiper-slide">
-                  <video src="./assets/videos/4-5.mp4" muted playsinline loop></video>
+                  <video src="./assets/videos/4-5.mp4" preload="none" muted playsinline loop></video>
                 </div>
               </div>
             </div>
@@ -639,7 +639,6 @@
     <script src="./assets/js/swiper-bundle.min.js"></script>
     <script src="./assets/js/data.js"></script>
 <script src="./assets/js/app.js"></script>
-    <script src="./assets/js/djp.js"></script>
 
     <script>
       const prevBtn = document.querySelector(".prev-btn");
@@ -649,6 +648,8 @@
         document.querySelectorAll(".video-swiper video").forEach((video) => {
           video.pause();
           video.currentTime = 0;
+          // inactive slides must not download until their slide is reached
+          video.preload = "none";
         });
       }
 
@@ -659,6 +660,7 @@
         const activeVideo = activeSlide.querySelector("video");
 
         if (activeVideo) {
+          activeVideo.preload = "auto";
           activeVideo.currentTime = 0;
           activeVideo.play().catch(() => {});
         }

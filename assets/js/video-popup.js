@@ -21,7 +21,7 @@ function initVideoPopup({ src, slideIndex }) {
       </button>
 
       <div class="popup-video-box">
-        <video class="popup-video" src="${src}" playsinline></video>
+        <video class="popup-video" src="${src}" playsinline preload="none"></video>
 
         <div class="video-click-layer"></div>
 
@@ -89,18 +89,9 @@ function initVideoPopup({ src, slideIndex }) {
     progressBar.value = 0;
     currentTimeText.textContent = "0:00";
 
-    if (popupVideo.readyState >= 1) {
-      popupVideo.play().catch(() => {});
-    } else {
-      popupVideo.addEventListener(
-        "loadedmetadata",
-        () => {
-          popupVideo.currentTime = 0;
-          popupVideo.play().catch(() => {});
-        },
-        { once: true },
-      );
-    }
+    // preload is "none", so play() itself starts the download (waiting for
+    // loadedmetadata first would wait forever)
+    popupVideo.play().catch(() => {});
 
     updatePlayIcons(true);
   }
